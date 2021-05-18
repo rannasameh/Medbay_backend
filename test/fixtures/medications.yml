@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  string: 
+  patient: one
+  doctor: one
+  integer: 
+  date: 
+  date: 
+  string: 
+
+two:
+  string: 
+  patient: two
+  doctor: two
+  integer: 
+  date: 
+  date: 
+  string: 
