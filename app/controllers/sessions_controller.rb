@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+    #skip_before_action :authenticate_user!
     def create
     if params[:account_type]=="Patient"
         @user=Patient.where(email: params[:email]).first

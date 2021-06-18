@@ -33,6 +33,7 @@ class DeviseCreateDoctors < ActiveRecord::Migration[6.1]
       t.string :clinic_country,            null: false, default: ""
       t.integer :clinic_working_hours_from,            null: false, default: 0
       t.integer :clinic_working_hours_to ,            null: false, default: 0
+      t.string :clinic_working_days ,            null: false, default: ""
       t.string :clinic_phone_number ,            null: false, default: ""
       t.integer :rating ,            null: false, default: 0
 

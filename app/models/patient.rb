@@ -1,6 +1,8 @@
 class Patient < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  enum gender: [:Male,:Female,:Other]
+  enum marital_status: [:Married,:Single,:Seperated,:Divorced]
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -12,4 +14,6 @@ class Patient < ApplicationRecord
    has_many :appointments, dependent: :destroy
    has_many :tests, dependent: :destroy
    has_many :reminders , dependent: :destroy
+   has_many :special_habits , dependent: :destroy
+   
 end

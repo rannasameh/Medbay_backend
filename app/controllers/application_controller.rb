@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::API
-    #before_action :require_login
+    #before_action :authenticate_user
 
 
    # private
-    #def require_login
+    #def authenticate_user
     #raise JWT:: VerificationError unless request.headers['Authorization']
     #token= request.headers['Authorization'].split('')[1]
     #type=JWT.decode(token, Rails.application.secrets.secret_key_base)[0]['account_type']

@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_26_215712) do
+ActiveRecord::Schema.define(version: 2021_06_18_191431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "city", default: "", null: false
+    t.string "country", default: "", null: false
+    t.string "phone_number", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
 
   create_table "allergies", force: :cascade do |t|
     t.bigint "patient_id", null: false
@@ -73,6 +90,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_215712) do
     t.string "clinic_country", default: "", null: false
     t.integer "clinic_working_hours_from", default: 0, null: false
     t.integer "clinic_working_hours_to", default: 0, null: false
+    t.string "clinic_working_days", default: "", null: false
     t.string "clinic_phone_number", default: "", null: false
     t.integer "rating", default: 0, null: false
     t.string "reset_password_token"
@@ -85,9 +103,8 @@ ActiveRecord::Schema.define(version: 2021_04_26_215712) do
   end
 
   create_table "medication_histories", force: :cascade do |t|
-    t.bigint "patient_id", null: false
+    t.bigint "patient_id"
     t.string "name", default: ""
-    t.string "special_habits", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["patient_id"], name: "index_medication_histories_on_patient_id"
@@ -99,8 +116,9 @@ ActiveRecord::Schema.define(version: 2021_04_26_215712) do
     t.bigint "doctor_id", null: false
     t.integer "times", default: 0, null: false
     t.date "start_date", default: -> { "CURRENT_DATE" }, null: false
-    t.date "end_date", default: -> { "CURRENT_DATE" }, null: false
+    t.integer "duration", default: 0, null: false
     t.string "dosage", default: "", null: false
+    t.boolean "done", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["doctor_id"], name: "index_medications_on_doctor_id"
@@ -137,7 +155,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_215712) do
     t.string "emergency_phone_number", default: ""
     t.integer "height"
     t.decimal "weight", precision: 5, scale: 2, default: "0.0"
-    t.integer "blood_type"
+    t.string "blood_type", default: ""
     t.string "family_allergies", default: ""
     t.string "family_diseaeses", default: ""
     t.string "family_other_illnesses", default: ""
@@ -160,6 +178,14 @@ ActiveRecord::Schema.define(version: 2021_04_26_215712) do
     t.index ["patient_id"], name: "index_reminders_on_patient_id"
   end
 
+  create_table "special_habits", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.string "special_habit", default: ""
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_special_habits_on_patient_id"
+  end
+
   create_table "tests", force: :cascade do |t|
     t.bigint "patient_id", null: false
     t.bigint "doctor_id", null: false
@@ -180,6 +206,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_215712) do
   add_foreign_key "operations", "patients"
   add_foreign_key "reminders", "medications"
   add_foreign_key "reminders", "patients"
+  add_foreign_key "special_habits", "patients"
   add_foreign_key "tests", "doctors"
   add_foreign_key "tests", "patients"
 end
