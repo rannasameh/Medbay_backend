@@ -35,8 +35,11 @@ class DeviseCreateDoctors < ActiveRecord::Migration[6.1]
       t.integer :clinic_working_hours_to ,            null: false, default: 0
       t.string :clinic_working_days ,            null: false, default: ""
       t.string :clinic_phone_number ,            null: false, default: ""
-      t.integer :rating ,            null: false, default: 0
-
+      t.integer :rating ,             default: 5
+      t.string :verified,             default: "not verified"
+      t.string :banned,             default: "not banned"
+      t.integer :reports_number,       default: 0
+     
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

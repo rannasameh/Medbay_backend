@@ -34,8 +34,9 @@ class DoctorsController < ApplicationController
         @doctor=Doctor.find(params[:id])
         render json: {status:"200",message:@doctor}, status: :ok
     end
+
     def index 
-        @doctor=Doctor.all
+        @doctor=Doctor.verified.notbanned
         render json: {status:"200",message:@doctor}, status: :ok
     end
    
@@ -48,7 +49,17 @@ class DoctorsController < ApplicationController
         end
     end
 
- 
+    def increamentReports
+        @doctor=Doctor.find(params[:id])
+        numberofreports=@doctor.reports_number
+        totalnumberofreports=numberofreports+1
+        if @doctor.update_attribute(:reports_number,totalnumberofreports )
+            render json: {status:"200",message:@doctor}, status: :ok
+        else
+            render json: {status:"200",message:'error'}, status: :ok
+        end
+
+    end
 
     private
     def  doctor_params

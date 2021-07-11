@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
             render json: {status:"200",message:'Invalid email or password'}, status: :ok
         end
     else params[:account_type]=="Doctor"
-        @user=Doctor.where(email: params[:email]).first
+        @user=Doctor.verified.notbanned.where(email: params[:email]).first
         if @user&.valid_password?(params[:password])
             jwt=JWT.encode({type: params[:account_type],id: @user.id},Rails.application.secrets.secret_key_base,'HS256')
             render json: {token:jwt,user:@user}, status: :ok

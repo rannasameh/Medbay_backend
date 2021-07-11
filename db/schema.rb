@@ -92,7 +92,10 @@ ActiveRecord::Schema.define(version: 2021_06_18_191431) do
     t.integer "clinic_working_hours_to", default: 0, null: false
     t.string "clinic_working_days", default: "", null: false
     t.string "clinic_phone_number", default: "", null: false
-    t.integer "rating", default: 0, null: false
+    t.integer "rating", default: 5
+    t.string "verified", default: "not verified"
+    t.string "banned", default: "not banned"
+    t.integer "reports_number", default: 0
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

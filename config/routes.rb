@@ -14,8 +14,14 @@ Rails.application.routes.draw do
   post 'updateMedication', to: 'medications#updateMedication'
   post 'adminSignin', to: 'admins#adminSignin'
   get 'getUsers', to: 'admins#getUsers'
+  post 'verifyDoctor', to: 'admins#verifyDoctor'
+  post 'banDoctor', to: 'admins#banDoctor'
+  get 'getBannedDoctors', to: 'admins#getBannedDoctors'
+  post 'increamentReports', to: 'doctors#increamentReports'
+  get 'getReportedDoctors', to: 'admins#getReportedDoctors'
+  get 'getNotVerifiedDoctors', to: 'admins#getNotVerifiedDoctors'
 
-
+  
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

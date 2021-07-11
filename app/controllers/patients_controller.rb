@@ -7,7 +7,7 @@ class PatientsController < ApplicationController
        @operations=@patient.operations.all
        @medications=@patient.medication_histories.all
        @special_habits=@patient.special_habits.all
-       @patientdetails={id: @patient.id,email: @patient.email,patient_first_name:@patient.first_name,patient_last_name:@patient.last_name,date_of_birth: @patient.date_of_birth,gender: @patient.gender,street: @patient.street,building: @patient.building,city: @patient.city,country: @patient.country,medications: @medications,operations: @operations,diseases: @diseases,allegries: @allergies,marital_status: @patient.marital_status,phone_number: @patient.phone_number,emergency_first_name: @patient.emergency_first_name,emergency_last_name: @patient.emergency_last_name,emergency_phone_number: @patient.emergency_phone_number,
+       @patientdetails={id: @patient.id,email: @patient.email,zip_code: @patient.zip_code,state: @patient.state,patient_first_name:@patient.first_name,patient_last_name:@patient.last_name,date_of_birth: @patient.date_of_birth,gender: @patient.gender,street: @patient.street,building: @patient.building,city: @patient.city,country: @patient.country,medications: @medications,operations: @operations,diseases: @diseases,allegries: @allergies,marital_status: @patient.marital_status,phone_number: @patient.phone_number,emergency_first_name: @patient.emergency_first_name,emergency_last_name: @patient.emergency_last_name,emergency_phone_number: @patient.emergency_phone_number,
     family_allergies: @patient.family_allergies,family_diseaeses: @patient.family_diseaeses,family_other_illnesses: @patient.family_other_illnesses,weight: @patient.weight,height: @patient.height,blood_type: @patient.blood_type,special_habits: @special_habits}
 
         render json: {status:"200",message:@patientdetails}, status: :ok
@@ -93,8 +93,9 @@ class PatientsController < ApplicationController
         render json: {status:"200",message:@p}, status: :ok
     end
     
-    def update
+    def update 
         @patient=Patient.find(params[:id])
+        puts patient_params
         if @patient.update(patient_params)
             render json: {status:"200",message:@patient}, status: :ok
             
