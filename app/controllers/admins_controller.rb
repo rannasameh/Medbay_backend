@@ -9,14 +9,31 @@ class AdminsController < ApplicationController
                 render json: {status:"200",message:'Invalid email or password'}, status: :ok
             end
     end 
+    def create
+        @admin=Doctor.create!(email: params[:email],password: params[:password],password_confirmation: params[:password_confirmation])
+        render json: {status:"200",message:@admin}, status: :ok
+    end
     def index 
         @admin=Admin.all
         render json: {status:"200",message:@admin, status: :ok}
     end
+    def show
+        @admin=Admin.find(params[:id])
+        render json: {status:"200",message:@admin}, status: :ok
+    end
+    def update 
+        @admin=Admin.find(params[:id])
+        if @admin.update(patient_params)
+            render json: {status:"200",message:@admin}, status: :ok
+            
+        else
+            render json: {status:"200",message:'error'}, status: :ok
+        end
+    end
     def getUsers
         totalPatients=Patient.count
         totaldr=Doctor.verified.count
-        pendingdrs=Doctor.notVerified.count
+        pendingdrs=Doctor.notVerified.notbanned.count
         femalePatients=Patient.where(gender: "Female").count
         malePatients=Patient.where(gender: "Male").count
         otherPatients=Patient.where(gender: "Other").count
@@ -27,7 +44,6 @@ class AdminsController < ApplicationController
         currentmonth=Time.now.month
         newPatients=allpatients.group_by{ |t| t.created_at.month==currentmonth}
         
-       
         render json: {status: "200",totalPatients: totalPatients,totaldrs: totaldr,pending: pendingdrs,malePatients: malePatients,femalePatients: femalePatients,otherPatients: otherPatients,maleDoctors: maleDoctors,femaleDoctors: femaleDoctors,otherDoctors: otherDoctors,newPatients: newPatients}
     end
     def verifyDoctor
@@ -57,7 +73,7 @@ class AdminsController < ApplicationController
         render json: {status:"200",message:@doctor}, status: :ok
     end
     def getReportedDoctors 
-        @doctor=Doctor.verified.where("reports_number > 5")
+        @doctor=Doctor.verified.notbanned.where("reports_number >=6 ")
         render json: {status:"200",message:@doctor}, status: :ok
     end
 

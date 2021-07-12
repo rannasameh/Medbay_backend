@@ -112,9 +112,15 @@ class PatientsController < ApplicationController
         render json: {status:"404",message:'Not found'}, status: :unprocessable_entity
      end
     end
-
-
-
+    def getTests
+    @allTests=[]
+        @Tests=Test.where(patient_id: params[:id])
+        @Tests.each do |test|
+        dr=Doctor.find(test.doctor_id)
+        @allTests <<{name: test.name,doctor_fname: dr.first_name,doctor_lname: dr.last_name}
+        end
+        render json: {status:"200",message:@allTests}, status: :ok
+    end 
     private
     def  patient_params
     params.permit(:username,:email,:password,:password_confirmation,:first_name,:last_name,:date_of_birth,:gender,:street,:building,:city,:state,:zip_code,:country,:phone_number,:marital_status,:emergency_first_name,:emergency_last_name,:emergency_phone_number,:height,:weight,:blood_type,:family_allergies,:family_diseaeses,:family_other_illnesses)

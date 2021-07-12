@@ -94,7 +94,9 @@ speciality=["Allergists/Immunologists",
     clinic_working_hours_to:  Faker::Number.between(from: 8, to: 10),
     clinic_phone_number: Faker::PhoneNumber.cell_phone,
     rating: Faker::Number.between(from: 1, to: 5 ),
-    verified:'verified'
+    verified:'verified',
+    clinic_working_days: ["Sunday","Monday","Tuesday"]
+
             }
         )
         end

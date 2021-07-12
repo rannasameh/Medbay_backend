@@ -25,7 +25,7 @@ class AppointmentsController < ApplicationController
     @appointment=Appointment.where(patient_id: params[:patient_id]).order(:appointment_date)
     @appointment.each do |med|
     dr=Doctor.find(med.doctor_id)
-    @appointments << {patient_id: med.patient_id,doctor_id: med.doctor_id,appointment_date: med.appointment_date,appointment_time: med.appointment_time,doctor_fname: dr.first_name,doctor_lname: dr.last_name}
+    @appointments << {patient_id: med.patient_id,doctor_id: med.doctor_id,appointment_date: med.appointment_date,appointment_time: med.appointment_time,doctor_fname: dr.first_name,doctor_lname: dr.last_name,ratings: dr.rating}
     end
     render json: {status:"200",message: @appointments}, status: :ok
 end

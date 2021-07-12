@@ -19,8 +19,10 @@ Rails.application.routes.draw do
   get 'getBannedDoctors', to: 'admins#getBannedDoctors'
   post 'increamentReports', to: 'doctors#increamentReports'
   get 'getReportedDoctors', to: 'admins#getReportedDoctors'
-  get 'getNotVerifiedDoctors', to: 'admins#getNotVerifiedDoctors'
+  post 'adminSignin', to: 'admins#adminSignin'
 
+  get 'getNotVerifiedDoctors', to: 'admins#getNotVerifiedDoctors'
+  post 'getTests', to: 'patients#getTests'
   
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
