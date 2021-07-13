@@ -15,5 +15,6 @@ class Patient < ApplicationRecord
    has_many :tests, dependent: :destroy
    has_many :reminders , dependent: :destroy
    has_many :special_habits , dependent: :destroy
+   has_one_attached :avatar
    
 end

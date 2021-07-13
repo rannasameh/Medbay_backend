@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   post 'increamentReports', to: 'doctors#increamentReports'
   get 'getReportedDoctors', to: 'admins#getReportedDoctors'
   post 'adminSignin', to: 'admins#adminSignin'
-
+  post 'updateTests', to: 'patients#updateTests'
   get 'getNotVerifiedDoctors', to: 'admins#getNotVerifiedDoctors'
   post 'getTests', to: 'patients#getTests'
   

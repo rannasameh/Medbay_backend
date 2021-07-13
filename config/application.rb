@@ -38,11 +38,11 @@ module MedbayBackend
    
 
     config.api_only=true
-   config.middleware.insert_before 0, Rack::Cors do
-    allow do
-     origins '*'
-     resource '*', headers: :any, methods: [:get, :post, :put, :delete, :patch, :options]
-  end
-end
+    Rails.application.config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options]
+      end
+    end
   end
 end

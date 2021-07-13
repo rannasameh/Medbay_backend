@@ -25,7 +25,8 @@ class AppointmentsController < ApplicationController
     @appointment=Appointment.where(patient_id: params[:patient_id]).order(:appointment_date)
     @appointment.each do |med|
     dr=Doctor.find(med.doctor_id)
-    @appointments << {patient_id: med.patient_id,doctor_id: med.doctor_id,appointment_date: med.appointment_date,appointment_time: med.appointment_time,doctor_fname: dr.first_name,doctor_lname: dr.last_name,ratings: dr.rating}
+    patient=Patient.find(med.patient_id)
+    @appointments << {patient_id: med.patient_id,doctor_id: med.doctor_id,appointment_date: med.appointment_date,appointment_time: med.appointment_time,doctor_fname: dr.first_name,doctor_lname: dr.last_name,ratings: dr.rating,patient_fname: patient.first_name,patient_lname: patient.last_name}
     end
     render json: {status:"200",message: @appointments}, status: :ok
 end
@@ -39,6 +40,15 @@ def index
     render json: {status:"200",message: @appointments}, status: :ok
 
 end 
+def getappdoctor  
+    @appointments=[]
+    @appointment=Appointment.where(doctor_id: params[:doctor_id]).order(:appointment_date)
+    @appointment.each do |med|
+    patient=Patient.find(med.patient_id)
+    @appointments << {patient_id: med.patient_id,doctor_id: med.doctor_id,appointment_date: med.appointment_date,appointment_time: med.appointment_time,patient_fname: patient.first_name,patient_lname: patient.last_name}
+    end
+    render json: {status:"200",message: @appointments}, status: :ok
+end
 
 def getPatients
 patient_id=Appointment.where(doctor_id: params[:doctor_id]).distinct.pluck(:patient_id)

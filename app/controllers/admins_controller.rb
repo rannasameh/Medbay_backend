@@ -8,14 +8,11 @@ class AdminsController < ApplicationController
             else 
                 render json: {status:"200",message:'Invalid email or password'}, status: :ok
             end
+
     end 
     def create
         @admin=Doctor.create!(email: params[:email],password: params[:password],password_confirmation: params[:password_confirmation])
         render json: {status:"200",message:@admin}, status: :ok
-    end
-    def index 
-        @admin=Admin.all
-        render json: {status:"200",message:@admin, status: :ok}
     end
     def show
         @admin=Admin.find(params[:id])
@@ -23,7 +20,7 @@ class AdminsController < ApplicationController
     end
     def update 
         @admin=Admin.find(params[:id])
-        if @admin.update(patient_params)
+        if @admin.update(admin_params)
             render json: {status:"200",message:@admin}, status: :ok
             
         else

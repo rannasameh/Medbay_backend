@@ -15,4 +15,6 @@ class Doctor < ApplicationRecord
   has_many :appointments , dependent: :destroy
   has_many :medications , dependent: :destroy
   has_many :tests, dependent: :destroy
+  has_one_attached :avatar
+  has_many_attached :certificates
 end
